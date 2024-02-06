@@ -1,0 +1,32 @@
+def heapsort(A):
+    # Build a max-heap from the input array
+    build_max_heap(A)
+
+    # Extract elements one by one from the max-heap
+    for i in range(len(A) - 1, 0, -1):
+        A[0], A[i] = A[i], A[0]
+        max_heapify(A, 0, i)
+
+def build_max_heap(A):
+    # Build a max-heap from bottom to up
+    n = len(A)
+    for i in range(n // 2 - 1, -1, -1):
+        max_heapify(A, i, n)
+
+def max_heapify(A, i, heap_size):
+    left = 2 * i + 1
+    right = 2 * i + 2
+    largest = i
+
+    # Compare with left child
+    if left < heap_size and A[left] > A[largest]:
+        largest = left
+
+    # Compare with right child
+    if right < heap_size and A[right] > A[largest]:
+        largest = right
+
+    # Swap and continue heapifying if needed
+    if largest != i:
+        A[i], A[largest] = A[largest], A[i]
+        max_heapify(A, largest, heap_size)
